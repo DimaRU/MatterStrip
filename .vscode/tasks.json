@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Dump Matter factory partition",
+            "type": "shell",
+            "command": "${config:idf.espIdfPath}/components/nvs_flash/nvs_partition_tool/nvs_tool.py $(find ./factory_partition -name \"*-partition.bin\") -f text -d minimal",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ESP_MATTER_PATH": "${config:idf.espMatterPath}"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Flash Matter factory partition",
+            "type": "shell",
+            "command": ". ${IDF_PATH}/export.sh >/dev/null 2>&1 && ./flashFactoryPartition.sh ${config:idf.port}",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "${config:idf.espIdfPath}",
+                    "ESP_MATTER_PATH": "${config:idf.espMatterPath}"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Make Matter factory partition",
+            "type": "shell",
+            "command": ". ${IDF_PATH}/export.sh >/dev/null 2>&1 && ./makeFactoryPartition.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "${config:idf.espIdfPath}",
+                    "ESP_MATTER_PATH": "${config:idf.espMatterPath}"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}

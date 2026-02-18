@@ -1,0 +1,76 @@
+menu "Power strip configuration"
+    config OUTLET_COUNT
+        int "Outlets count"
+        default 5
+        range 1 6
+
+    config GPIO_OUTLET_1
+        int "GPIO number for outlet 1"
+        default 0
+        depends on (OUTLET_COUNT >= 1)
+        help
+            GPIO pin number for control outlet relay
+
+    config GPIO_OUTLET_2
+        int "GPIO number for outlet 2"
+        default 1
+        depends on (OUTLET_COUNT >= 2)
+        help
+            GPIO pin number for control outlet relay
+    
+    config GPIO_OUTLET_3
+        int "GPIO number for outlet 3"
+        default 5
+        depends on (OUTLET_COUNT >= 3)
+        help
+            GPIO pin number for control outlet relay
+    
+    config GPIO_OUTLET_4
+        int "GPIO number for outlet 4"
+        default 6
+        depends on (OUTLET_COUNT >= 4)
+        help
+            GPIO pin number for control outlet relay
+    
+    config GPIO_OUTLET_5
+        int "GPIO number for outlet 4"
+        default 10
+        depends on (OUTLET_COUNT >= 5)
+        help
+            GPIO pin number for control outlet relay
+    
+    config GPIO_OUTLET_6
+        int "GPIO number for outlet 4"
+        default 11
+        depends on (OUTLET_COUNT >= 6)
+        help
+            GPIO pin number for control outlet relay
+
+    config POWER_LED
+        bool "Have power led"
+        default y
+        help
+            Power led indicate "on" state of one or more outlets
+
+    config POWER_LED_GPIO
+        int "Power led GPIO number"
+        default 12
+        depends on POWER_LED
+
+    config BUTTON_GPIO
+        int "Config button GPIO number"
+        default 9
+
+    config INDICATOR_LED_GPIO
+        int "Indicator LED GPIO number"
+        default 8
+        
+    config INDICATOR_LED_INVERT
+        bool "Indicator LED inverted logic"
+        default n
+
+    config XIAO_ESP32C6_EXTERNAL_ANTENNA
+        bool "Switch to external antenna for XIAO ESP3C6 module"
+        depends on IDF_TARGET_ESP32C6
+    
+endmenu

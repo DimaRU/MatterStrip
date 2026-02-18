@@ -1,0 +1,74 @@
+/*
+ *   Common definitions
+ */
+
+#pragma once
+
+#include <esp_err.h>
+#include <esp_matter.h>
+
+#if CHIP_DEVICE_CONFIG_ENABLE_THREAD
+#include "esp_openthread_types.h"
+#endif
+
+typedef void *app_driver_handle_t;
+
+// Initialize the device driver
+void app_driver_init();
+
+/** Initialize the button driver
+ *
+ * This initializes the button driver associated with the selected board.
+ *
+ */
+void app_driver_button_init(void (*button_toggle_callback)(), void (*button_reset_callback)());
+
+/** Attribute Update for device cluster
+ *
+ * This API should be called to update the driver for the attribute being updated.
+ * This is usually called from the common `app_attribute_update_cb()`.
+ *
+ * @param[in] endpoint_id Endpoint ID of the attribute.
+ * @param[in] cluster_id Cluster ID of the attribute.
+ * @param[in] attribute_id Attribute ID of the attribute.
+ * @param[in] val Pointer to `esp_matter_attr_val_t`. Use appropriate elements as per the value type.
+ *
+ */
+void app_driver_attribute_update(uint16_t endpoint_id,
+                                 uint32_t cluster_id,
+                                 uint32_t attribute_id,
+                                 esp_matter_attr_val_t *val);
+
+// Set defaults for device driver
+void app_driver_restore_matter_state();
+
+// Button toggle callback
+void button_toggle_cb();
+
+// Create device control endpoints
+void app_driver_create_endpoints(esp_matter::node_t *node);
+
+// Matter (chip) modules logging
+void matterLoggingCallback(const char * module, uint8_t category, const char * msg, va_list args);
+
+
+#if CHIP_DEVICE_CONFIG_ENABLE_THREAD
+#define ESP_OPENTHREAD_DEFAULT_RADIO_CONFIG()                                           \
+    {                                                                                   \
+        .radio_mode = RADIO_MODE_NATIVE,                                                \
+    }
+
+#define ESP_OPENTHREAD_DEFAULT_HOST_CONFIG()                                            \
+    {                                                                                   \
+        .host_connection_mode = HOST_CONNECTION_MODE_NONE,                              \
+    }
+
+#define ESP_OPENTHREAD_DEFAULT_PORT_CONFIG()                                            \
+    {                                                                                   \
+        .storage_partition_name = "nvs", .netif_queue_size = 10, .task_queue_size = 10, \
+    }
+#endif
+
+#ifdef CONFIG_XIAO_ESP32C6_EXTERNAL_ANTENNA
+void xiao_wifi_init();
+#endif
