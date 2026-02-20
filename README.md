@@ -1,4 +1,4 @@
-# Matter Power Strip controls 4 outlets and USB chager.
+# Matter Power Strip controls 4 outlets and USB charger.
 
 ## Power strip configuration
 Five default on-off plugin units have been created. You can create similar plugin units.
