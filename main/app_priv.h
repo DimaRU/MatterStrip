@@ -11,8 +11,6 @@
 #include "esp_openthread_types.h"
 #endif
 
-typedef void *app_driver_handle_t;
-
 // Initialize the device driver
 void app_driver_init();
 
