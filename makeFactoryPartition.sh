@@ -1,6 +1,10 @@
 #!/bin/bash
 
-factory_partition_path=${FACTORY_PARTITION:-"./factory_partition"}
+if (( "$#" == 1 )); then
+  factory_partition_path=$1
+else  
+  factory_partition_path=${FACTORY_PARTITION:-"./factory_partition"}
+fi
 
 partition_file=$(find $factory_partition_path -name "*-partition.bin" -print -quit 2>/dev/null)
 if [[ ${#partition_file} != 0 ]]; then
@@ -8,10 +12,10 @@ if [[ ${#partition_file} != 0 ]]; then
     exit 1
 fi
 
-if [[ -z "${FACTORY_PARTITION}" ]]; then
+if (( $factory_partition_path == "./factory_partition")); then
     source ./factoryData.sh
 else
-    source $FACTORY_PARTITION/factoryData.sh
+    source $factory_partition_path/factoryData.sh
 fi
 
 read -rp "Enter count of manufacturing partition binaries to generate: " count
