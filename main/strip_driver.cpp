@@ -57,9 +57,9 @@ static void app_driver_set_outlet_state(int index, bool value)
     }
 #if CONFIG_POWER_LED
     if ((powerOnMaskPrev == 0) && (powerOnMask != 0)) {
-        gpio_set_level((gpio_num_t)CONFIG_POWER_LED_GPIO, 1);
-    } else if ((powerOnMaskPrev != 0) && (powerOnMask == 0)) {
         gpio_set_level((gpio_num_t)CONFIG_POWER_LED_GPIO, 0);
+    } else if ((powerOnMaskPrev != 0) && (powerOnMask == 0)) {
+        gpio_set_level((gpio_num_t)CONFIG_POWER_LED_GPIO, 1);
     }
 #endif
 }
@@ -153,7 +153,7 @@ void app_driver_init() {
 #if CONFIG_POWER_LED
     gpio_reset_pin((gpio_num_t)CONFIG_POWER_LED_GPIO);
     gpio_set_direction((gpio_num_t)CONFIG_POWER_LED_GPIO, GPIO_MODE_OUTPUT);
-    gpio_set_level((gpio_num_t)CONFIG_POWER_LED_GPIO, 0);
+    gpio_set_level((gpio_num_t)CONFIG_POWER_LED_GPIO, 1);
 #endif    
     powerOnMask = 0;
 }
