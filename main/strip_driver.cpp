@@ -133,6 +133,9 @@ static void printHardwareConfig() {
     for(int index = 0; index < CONFIG_OUTLET_COUNT; index++) {
         ESP_LOGI(TAG, "Outlet %i pin: %i", index, pinMap[index]);
     }
+#if CONFIG_POWER_LED
+    ESP_LOGI(TAG, "Power led pin: %i", CONFIG_POWER_LED_GPIO);
+#endif
 
     ESP_LOGI(TAG, "Button pin: %i", CONFIG_BUTTON_GPIO);
 #if CONFIG_INDICATOR_LED_INVERT
