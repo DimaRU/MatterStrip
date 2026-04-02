@@ -10,6 +10,13 @@ menu "Power strip configuration"
         depends on (OUTLET_COUNT >= 1)
         help
             GPIO pin number for control outlet relay
+            
+    config OUTLET_1_INVERT
+        bool "Invert outlet 1"
+        default n
+        depends on (OUTLET_COUNT >= 1)
+        help
+            Invert outlet control pin level
 
     config GPIO_OUTLET_2
         int "GPIO number for outlet 2"
@@ -18,12 +25,26 @@ menu "Power strip configuration"
         help
             GPIO pin number for control outlet relay
     
+    config OUTLET_2_INVERT
+        bool "Invert outlet 2"
+        default n
+        depends on (OUTLET_COUNT >= 2)
+        help
+            Invert outlet control pin level
+    
     config GPIO_OUTLET_3
         int "GPIO number for outlet 3"
         default 5
         depends on (OUTLET_COUNT >= 3)
         help
             GPIO pin number for control outlet relay
+    
+    config OUTLET_3_INVERT
+        bool "Invert outlet 3"
+        default n
+        depends on (OUTLET_COUNT >= 3)
+        help
+            Invert outlet control pin level
     
     config GPIO_OUTLET_4
         int "GPIO number for outlet 4"
@@ -32,6 +53,13 @@ menu "Power strip configuration"
         help
             GPIO pin number for control outlet relay
     
+    config OUTLET_4_INVERT
+        bool "Invert outlet 4"
+        default n
+        depends on (OUTLET_COUNT >= 4)
+        help
+            Invert outlet control pin level
+    
     config GPIO_OUTLET_5
         int "GPIO number for outlet 4"
         default 10
@@ -39,12 +67,26 @@ menu "Power strip configuration"
         help
             GPIO pin number for control outlet relay
     
+    config OUTLET_5_INVERT
+        bool "Invert outlet 5"
+        default n
+        depends on (OUTLET_COUNT >= 5)
+        help
+            Invert outlet control pin level
+    
     config GPIO_OUTLET_6
         int "GPIO number for outlet 4"
         default 11
         depends on (OUTLET_COUNT >= 6)
         help
             GPIO pin number for control outlet relay
+
+    config OUTLET_6_INVERT
+        bool "Invert outlet 6"
+        default n
+        depends on (OUTLET_COUNT >= 6)
+        help
+            Invert outlet control pin level
 
     config POWER_LED
         bool "Have power led"

@@ -42,11 +42,45 @@ static const uint8_t pinMap[CONFIG_OUTLET_COUNT] = {
 #endif
 };
 
+static const bool pinLevelOn[6] = {
+#ifdef CONFIG_OUTLET_1_INVERT
+    CONFIG_OUTLET_1_INVERT,
+#else
+    false,
+#endif
+#ifdef CONFIG_OUTLET_2_INVERT
+    CONFIG_OUTLET_2_INVERT,
+#else
+    false,
+#endif
+#ifdef CONFIG_OUTLET_3_INVERT
+    CONFIG_OUTLET_3_INVERT,
+#else
+    false,
+#endif
+#ifdef CONFIG_OUTLET_4_INVERT
+    CONFIG_OUTLET_4_INVERT,
+#else
+    false,
+#endif
+#ifdef CONFIG_OUTLET_5_INVERT
+    CONFIG_OUTLET_5_INVERT,
+#else
+    false,
+#endif
+#ifdef CONFIG_OUTLET_6_INVERT
+    CONFIG_OUTLET_6_INVERT,
+#else
+    false,
+#endif
+};
+
 static void app_driver_set_outlet_state(int index, bool value)
 {
     gpio_num_t pin = (gpio_num_t)pinMap[index];
-    gpio_set_level(pin, value);
-    ESP_LOGI(TAG, "GPIO pin : %d(%d) set to %d", pin, index, value);
+    bool level = value ? pinLevelOn[index] : !pinLevelOn[index];
+    gpio_set_level(pin, level);
+    ESP_LOGI(TAG, "GPIO pin : %d(%d) set to %d", pin, index, level);
 
     auto powerOnMaskPrev = powerOnMask;
     uint16_t mask = 1 << index;
@@ -150,8 +184,8 @@ void app_driver_init() {
     for(int index = 0; index < CONFIG_OUTLET_COUNT; index++) {
         auto pin = gpio_num_t(pinMap[index]);
         gpio_reset_pin(pin);
+        gpio_set_level(pin, !pinLevelOn[index]);
         gpio_set_direction(pin, GPIO_MODE_OUTPUT);
-        gpio_set_level(pin, 0);
     }
 #if CONFIG_POWER_LED
     gpio_reset_pin((gpio_num_t)CONFIG_POWER_LED_GPIO);

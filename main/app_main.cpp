@@ -250,7 +250,9 @@ static void setupLogging() {
 
 extern "C" void app_main()
 {
-    esp_err_t err = ESP_OK;
+    /* Initialize hardware */
+    app_driver_init();
+    indicator_driver_init();
 
     setupLogging();
 
@@ -260,10 +262,6 @@ extern "C" void app_main()
     
     /* Initialize the ESP NVS layer */
     nvs_flash_init();
-
-    /* Initialize led driver */
-    app_driver_init();
-    indicator_driver_init();
 
     // Indicate start
     signalIndicator(SignalIndicator::startup);
@@ -307,7 +305,7 @@ extern "C" void app_main()
     esp_matter::cluster::basic_information::attribute::create_product_url(basic_information_cluster, NULL, 0);
     
     /* Matter start */
-    err = esp_matter::start(app_event_cb);
+    esp_err_t err = esp_matter::start(app_event_cb);
     ABORT_APP_ON_FAILURE(err == ESP_OK, ESP_LOGE(TAG, "Failed to start Matter, err:%d", err));
 
     auto serial_number_attr = attribute::get(basic_information_cluster, BasicInformation::Attributes::SerialNumber::Id);
