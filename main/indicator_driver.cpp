@@ -146,7 +146,7 @@ void indicator_driver_init()
     ESP_LOGI(TAG, "indicator driver init");
     ledc_timer_config(&ledc_timer);
     ledc_channel_config(&ledcChannel);
-    // ledc_fade_func_install(0);
+    ledc_fade_func_install(0);
     indicatorEventQueue = xQueueCreate(10, sizeof(int)*2);
     xTaskCreate(indicatorTask, "indicatorTask", 2048, nullptr, 14, nullptr);
 }
