@@ -61,7 +61,7 @@ menu "Power strip configuration"
             Invert outlet control pin level
     
     config GPIO_OUTLET_5
-        int "GPIO number for outlet 4"
+        int "GPIO number for outlet 5"
         default 10
         depends on (OUTLET_COUNT >= 5)
         help
@@ -75,7 +75,7 @@ menu "Power strip configuration"
             Invert outlet control pin level
     
     config GPIO_OUTLET_6
-        int "GPIO number for outlet 4"
+        int "GPIO number for outlet 6"
         default 11
         depends on (OUTLET_COUNT >= 6)
         help
