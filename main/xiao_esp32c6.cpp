@@ -7,7 +7,7 @@
 #include <app_priv.h>
 #include "driver/gpio.h"
 
-#ifdef CONFIG_XIAO_ESP32C6_EXTERNAL_ANTENNA
+#ifdef XIAO_ESP32C6_RF_SWITCH
 
 #define RF_SWITCH_ENABLE GPIO_NUM_3
 #define WIFI_ANT_CONFIG GPIO_NUM_14
@@ -20,7 +20,11 @@ void xiao_wifi_init()
     gpio_set_level(RF_SWITCH_ENABLE, 0);
     // select the external antenna
     gpio_set_direction(WIFI_ANT_CONFIG, GPIO_MODE_OUTPUT);
+#ifdef CONFIG_XIAO_ESP32C6_EXTERNAL_ANTENNA
     gpio_set_level(WIFI_ANT_CONFIG, 1);
+#else
+    gpio_set_level(WIFI_ANT_CONFIG, 0);
+#endif    
 }
 
 #endif

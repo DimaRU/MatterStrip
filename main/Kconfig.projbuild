@@ -111,8 +111,13 @@ menu "Power strip configuration"
         bool "Indicator LED inverted logic"
         default n
 
-    config XIAO_ESP32C6_EXTERNAL_ANTENNA
-        bool "Switch to external antenna for XIAO ESP3C6 module"
+    config XIAO_ESP32C6_RF_SWITCH
+        bool "Enable XIAO ESP3C6 RF Switch"
         depends on IDF_TARGET_ESP32C6
+
+    config XIAO_ESP32C6_EXTERNAL_ANTENNA
+    bool "Switch to external antenna for XIAO ESP3C6 module"
+    depends on XIAO_ESP32C6_RF_SWITCH
+
     
 endmenu

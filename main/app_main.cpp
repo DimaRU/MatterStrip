@@ -256,7 +256,7 @@ extern "C" void app_main()
 
     setupLogging();
 
-#ifdef CONFIG_XIAO_ESP32C6_EXTERNAL_ANTENNA
+#ifdef XIAO_ESP32C6_RF_SWITCH
     xiao_wifi_init();
 #endif
     
