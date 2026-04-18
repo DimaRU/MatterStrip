@@ -119,6 +119,7 @@ void app_driver_create_endpoints(esp_matter::node_t *node) {
     for(int index = 0; index < CONFIG_OUTLET_COUNT; index++) {
         on_off_plug_in_unit::config_t plugin_unit_config;
         plugin_unit_config.on_off.on_off = false;
+        plugin_unit_config.on_off_lighting.start_up_on_off = nullptr;
         endpoint_t *endpoint = on_off_plug_in_unit::create(node, &plugin_unit_config, ENDPOINT_FLAG_NONE, (void *)&pinMap[index]);
         ABORT_APP_ON_FAILURE(endpoint != nullptr, ESP_LOGE(TAG, "Matter endpoint creation failed"));
         endpointIdMap[index] = endpoint::get_id(endpoint);
